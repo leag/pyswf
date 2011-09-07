@@ -384,22 +384,38 @@ class TagDefineBits(DefinitionTag):
             self.bitmapData.seek(0)
 
 class TagDefineButton(DefinitionTag):
+    """
+    The DefineButton tag defines a button character for later use by control
+    tags such as PlaceObject.
+    DefineButton includes an array of Button records that represent the four
+    button shapes: an up character, a mouse-over character, a down character,
+    and a hit-area character. It is not necessary to define all four states, 
+    but at least one button record must be present. For example, if the same
+    button record defines both the up and over states, only three button records
+    are required to describe the button.
+    More than one button record per state is allowed. If two button records
+    refer to the same state, both are displayed for that state.
+    DefineButton also includes an array of ACTIONRECORDs, which are performed
+    when the button is clicked and released.
+    The minimum file format version is SWF 1.
+    """
     TYPE = 7
 
-    characters = []
-    actions = []
+    def __init__(self):
+        self.characters = []
+        self.actions = []
 
     def parse(data,lenght, version, async = False):
         self.characterId =  data.readUI16()
         character = None
         character = data.readBUTTONRECORD()
         while not character is None:
-            characters.append(character)
+            self.characters.append(character)
             character = character = data.readBUTTONRECORD()
         action = None
         action = data.readACTIONRECORD
         while not action is None:
-            actions.append(action)
+            self.actions.append(action)
             action = data.readACTIONRECORD
 
 class TagJPEGTables(DefinitionTag):
