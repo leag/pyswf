@@ -316,6 +316,14 @@ class SWFStream(object):
         filter = SWFFilterFactory.create(filterId)
         filter.parse(self)
         return filter
+
+    def readBUTTONRECORD(self,level=1):
+        """ Read a SWFButtonRecord """
+        if readUI8() == 0:
+            return None
+        else:
+            self.seek(self.tell() - 1)
+            return SWFButtonRecord(self, level)
     
     def readZONEDATA(self):
         """ Read a SWFZoneData """

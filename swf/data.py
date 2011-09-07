@@ -1213,3 +1213,33 @@ class SWFZoneRecord(object):
     def __str__(self):
         return "[SWFZoneRecord]"
                     
+class SWFButtonRecord(object):
+    def __init__(self, data=None, level=1):
+        self.hasBlendMode = False
+        self.hasFilterList = False
+        self.filterList = []
+        if not data is None:
+            self.parse(data,level)
+
+    def parse(self, data, level):
+        self.filterList = []
+        flags = data.readUI8();
+        self.stateHitTest = ((flags & 0x08) != 0)
+        self.stateDown = ((flags & 0x04) != 0)
+		self.stateOver = ((flags & 0x02) != 0)
+        self.stateUp = ((flags & 0x01) != 0)
+        self.characterId = data.readUI16()
+        self.placeDepth = data.readUI16()
+        self.placeMatrix = data.readMATRIX()
+        if level >= 2:
+            colorTransform = data.readCXFORMWITHALPHA()
+            hasFilterList = ((flags & 0x10) != 0)
+            if (hasFilterList):
+					numberOfFilters = data.readUI8()
+					for i in range(0,numberOfFilters):
+                        filterList.append(data.readFILTER())
+            hasBlendMode = ((flags & 0x20) != 0)
+            if hasBlendMode:
+                blendMode = data.readUI8()
+    def __str__(self):
+        return "[SWFButtonRecord]"

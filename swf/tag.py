@@ -16,6 +16,7 @@ class TagFactory(object):
         elif type == 4: return TagPlaceObject()
         elif type == 5: return TagRemoveObject()
         elif type == 6: return TagDefineBits()
+        elif type == 7: return TagDefineButton()
         elif type == 8: return TagJPEGTables()
         elif type == 9: return TagSetBackgroundColor()
         elif type == 10: return TagDefineFont()
@@ -381,6 +382,25 @@ class TagDefineBits(DefinitionTag):
         if length > 2:
             self.bitmapData.write(data.f.read(length - 2))
             self.bitmapData.seek(0)
+
+class TagDefineButton(DefinitionTag):
+    TYPE = 7
+
+    characters = []
+    actions = []
+
+    def parse(data,lenght, version, async = False):
+        self.characterId =  data.readUI16()
+        character = None
+        character = data.readBUTTONRECORD()
+        while not character is None:
+            characters.append(character)
+            character = character = data.readBUTTONRECORD()
+        action = None
+        action = data.readACTIONRECORD
+        while not action is None:
+            actions.append(action)
+            action = data.readACTIONRECORD
 
 class TagJPEGTables(DefinitionTag):
     """
