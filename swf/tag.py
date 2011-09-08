@@ -406,7 +406,7 @@ class TagDefineButton(DefinitionTag):
         self.actions = []
 
     def parse(data,lenght, version, async = False):
-        self.characterId =  data.readUI16()
+        self.characterId = data.readUI16()
         character = None
         character = data.readBUTTONRECORD()
         while not character is None:
@@ -621,7 +621,7 @@ class TagDoAction(Tag):
             self._actions.append(action)
             action = data.readACTIONRECORD()
 
-class TagDefineFontInfo(Tag):
+class TagDefineFontInfo(DefinitionTag):
     """
     The DefineFontInfo tag defines a mapping from a glyph font (defined with DefineFont) to a
     device font. It provides a font name and style to pass to the playback platform's text engine,
@@ -637,6 +637,7 @@ class TagDefineFontInfo(Tag):
     TYPE = 13
     def __init__(self):
         super(TagDefineFontInfo, self).__init__()
+        self.codeTable = []
 
     @property
     def name(self):
