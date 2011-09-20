@@ -3,8 +3,8 @@ This module defines exporters for the SWF fileformat.
 """
 from consts import *
 from geom import *
-from utils import *
-from data import *
+#from utils import *
+#from data import *
 from tag import *
 from filters import *
 from lxml import objectify
@@ -253,7 +253,7 @@ class SVGShapeExporter(DefaultSVGShapeExporter):
         if len(e) < 1:
             raise Exception("SVGShapeExporter::begin_bitmap_fill Could not find bitmap!")
         image = e[0]
-        pattern_id = "pat%d" % (self.num_patterns)
+        pattern_id = "pat%d" % self.num_patterns
         pattern = self._e.pattern()
         pattern.set("id", pattern_id)
         pattern.set("width", image.get("width"))

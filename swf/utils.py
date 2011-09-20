@@ -1,5 +1,5 @@
 from consts import BitmapType
-import math
+#import math
 
 class NumberUtils(object):
     @classmethod
@@ -16,7 +16,7 @@ class ColorUtils(object):
     
     @classmethod
     def rgb(cls, color):
-        return (color & 0xffffff)
+        return color & 0xffffff
     
     @classmethod
     def to_rgb_string(cls, color):

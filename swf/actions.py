@@ -10,7 +10,7 @@ class Action(object):
     
     @property   
     def length(self):
-        return self._length;
+        return self._length
     
     @property
     def version(self):
@@ -25,20 +25,20 @@ class Action(object):
         return "[Action] Code: 0x%x, Length: %d" % (self._code, self._length)
 
 class ActionUnknown(Action):
-    ''' Dummy class to read unknown actions '''
+    """ Dummy class to read unknown actions """
     def __init__(self, code, length):
         super(ActionUnknown, self).__init__(code, length)
-    
+
     def parse(self, data):
         if self._length > 0:
             #print "skipping %d bytes..." % self._length
             data.skip_bytes(self._length)
-    
+
     def tostring(self, indent=0):
         return "[ActionUnknown] Code: 0x%x, Length: %d" % (self._code, self._length)
-        
+
 class Action4(Action):
-    ''' Base class for SWF 4 actions '''
+    """ Base class for SWF 4 actions """
     def __init__(self, code, length):
         super(Action4, self).__init__(code, length)
     
@@ -47,7 +47,7 @@ class Action4(Action):
         return 4
 
 class Action5(Action):
-    ''' Base class for SWF 5 actions '''
+    """ Base class for SWF 5 actions """
     def __init__(self, code, length):
         super(Action5, self).__init__(code, length)
 
@@ -56,7 +56,7 @@ class Action5(Action):
         return 5
         
 class Action6(Action):
-    ''' Base class for SWF 6 actions '''
+    """ Base class for SWF 6 actions """
     def __init__(self, code, length):
         super(Action6, self).__init__(code, length)
 
@@ -65,7 +65,7 @@ class Action6(Action):
         return 6
         
 class Action7(Action):
-    ''' Base class for SWF 7 actions '''
+    """ Base class for SWF 7 actions """
     def __init__(self, code, length):
         super(Action7, self).__init__(code, length)
 
